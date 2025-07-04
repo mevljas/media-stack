@@ -203,9 +203,9 @@ services:
   # devices:
    #  - /dev/videoN:/dev/videoN # Mount GPU device 
     ports:
-      - 8096:8096
-      - 7359:7359/udp
-      - 8920:8920
+      - 0.0.0.0:8096:8096
+      - 0.0.0.0:7359:7359/udp
+      - 0.0.0.0:8920:8920
     restart: unless-stopped
   
   
