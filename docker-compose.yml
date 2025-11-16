@@ -112,6 +112,7 @@ services:
     volumes:
       - jellyfin-config:/config
       - torrent-downloads:/data
+      - D:\sebas\Torrent:/windows-torrent:ro
   # devices:
    #  - /dev/videoN:/dev/videoN # Mount GPU device 
     ports:
