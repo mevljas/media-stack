@@ -120,37 +120,26 @@ services:
       - 0.0.0.0:7359:7359/udp
       - 0.0.0.0:8920:8920
     restart: unless-stopped
-  
-  
-  # Doc: https://github.com/navilg/cleanmyarr
-  # cleanmyarr:
-  #   depends_on:
-  #     - radarr
-  #     - sonarr
-  #   image: linuxshots/cleanmyarr:latest
-  #   container_name: cleanmyarr
-  #   networks:
-  #     - mynetwork
-  #   volumes:
-  #     - cleanmyarr-config:/config
-    # restart: unless-stopped
-    # environment:
-    # - CMA_MAINTENANCE_CYCLE=${CMA_MAINTENANCE_CYCLE:-""}
-    # - CMA_DELETE_AFTER_DAYS=${CMA_DELETE_AFTER_DAYS:-""}
-    # - CMA_ENABLE_EMAIL_NOTIFICATION=${CMA_ENABLE_EMAIL_NOTIFICATION:-""}
-    # - CMA_SMTP_USERNAME=${CMA_SMTP_USERNAME:-""}
-    # - CMA_SMTP_ENCODED_PASSWORD=${CMA_SMTP_ENCODED_PASSWORD:-""}
-    # - CMA_SMTP_TO_EMAILS=${CMA_SMTP_TO_EMAILS:-""}
-    # - CMA_ENABLE_GOTIFY_NOTIFICATION=${CMA_ENABLE_GOTIFY_NOTIFICATION:-""}
-    # - CMA_GOTIFY_URL=${CMA_GOTIFY_URL:-""}
-    # - CMA_GOTIFY_ENCODED_APP_TOKEN=${CMA_GOTIFY_ENCODED_APP_TOKEN:-""}
-    # - CMA_ENABLE_TELEGRAM_NOTIFICATION=${CMA_ENABLE_TELEGRAM_NOTIFICATION:-""}
-    # - CMA_TELEGRAM_ENCODED_BOT_TOKEN=${CMA_TELEGRAM_ENCODED_BOT_TOKEN:-""}
-    # - CMA_TELEGRAM_CHAT_ID=${CMA_TELEGRAM_CHAT_ID:-""}
-    # - CMA_MONITOR_RADARR=${CMA_MONITOR_RADARR:-""}
-    # - CMA_RADARR_URL=${CMA_RADARR_URL:-""}
-    # - CMA_RADARR_ENCODED_API_KEY=${CMA_RADARR_ENCODED_API_KEY:-""}
-    # - CMA_RADARR_ENABLE_NOTIFICATION=${CMA_RADARR_ENABLE_NOTIFICATION:-""}
+  #https://github.com/serzhshakur/sanitarr
+  sanitarr:
+    image: sanitarr:local
+    container_name: sanitarr
+    networks:
+      - mynetwork
+    environment:
+      LOG_LEVEL: debug
+      INTERVAL: 1h
+    volumes:
+      - ./config/sanitarr-config.toml:/app/config.toml
+    command:
+      - "--config"
+      - "/app/config.toml"
+      - "--force-delete"
+    depends_on:
+      - jellyfin
+      - sonarr
+      - radarr
+      - qbittorrent
 
 volumes:
   torrent-downloads:
