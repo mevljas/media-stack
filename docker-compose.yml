@@ -31,7 +31,7 @@ services:
       - WEBUI_PORT=5080
     volumes:
       - qbittorrent-config:/config
-      - torrent-downloads:/downloads
+      - windows-torrent-downloads:/downloads
     ports:
       - 5080:5080
       - 6881:6881
@@ -51,7 +51,7 @@ services:
       - 7878:7878
     volumes:
       - radarr-config:/config
-      - torrent-downloads:/downloads
+      - windows-library:/downloads
     restart: "unless-stopped"
 
   sonarr:
@@ -65,7 +65,7 @@ services:
       - TZ=UTC
     volumes:
       - sonarr-config:/config
-      - torrent-downloads:/downloads
+      - windows-library:/downloads
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -111,8 +111,8 @@ services:
       - TZ=UTC
     volumes:
       - jellyfin-config:/config
-      - torrent-downloads:/data
-      - D:\sebas\Torrent:/windows-torrent:ro
+      - windows-torrent-downloads:/torrent-downloads
+      - windows-library:/library
   # devices:
    #  - /dev/videoN:/dev/videoN # Mount GPU device 
     ports:
@@ -122,7 +122,7 @@ services:
     restart: unless-stopped
   #https://github.com/serzhshakur/sanitarr
   sanitarr:
-    image: sanitarr:local
+    image: sanitarr:latest
     container_name: sanitarr
     networks:
       - mynetwork
@@ -142,13 +142,24 @@ services:
       - qbittorrent
 
 volumes:
-  torrent-downloads:
   radarr-config:
   sonarr-config:
   prowlarr-config:
   jellyfin-config:
   qbittorrent-config:
   jellyseerr-config:
+  windows-torrent-downloads:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: D:\sebas\Torrent
+  windows-library:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: D:\sebas\Videos\Jellyfin
 
 networks:
   mynetwork:
