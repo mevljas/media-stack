@@ -14,7 +14,7 @@ retention_period = "2d"
 base_url = "http://sonarr:8989"
 api_key = "CHANGEME"
 tags_to_keep = ["keep", "no_remove"]
-retention_period = "1w"
+retention_period = "2d"
 
 [download_clients.qbittorrent]
 base_url = "http://qbittorrent:5080"
