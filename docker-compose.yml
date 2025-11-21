@@ -31,7 +31,7 @@ services:
       - WEBUI_PORT=5080
     volumes:
       - qbittorrent-config:/config
-      - windows-torrent-downloads:/downloads
+      - windows-library:/downloads
     ports:
       - 5080:5080
       - 6881:6881
