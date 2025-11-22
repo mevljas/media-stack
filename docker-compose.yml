@@ -149,17 +149,9 @@ volumes:
   qbittorrent-config:
   jellyseerr-config:
   windows-torrent-downloads:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: D:\sebas\Torrent
+    external: true
   windows-library:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: D:\sebas\Videos\Jellyfin
+    external: true
 
 networks:
   mynetwork:

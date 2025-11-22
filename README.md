@@ -47,6 +47,32 @@ docker network create --subnet 172.20.0.0/16 mynetwork
 # Update the CIDR range based on your available IP range
 ```
 
+### Create External Volumes
+
+Create external volumes that will persist independently of the containers. These volumes will bind to your host directories for media storage:
+
+```bash
+# Create external volume for torrent downloads
+docker volume create --driver local --opt type=none --opt o=bind --opt device=/path/to/your/torrent/directory windows-torrent-downloads
+
+# Create external volume for media library 
+docker volume create --driver local --opt type=none --opt o=bind --opt device=/path/to/your/media/library windows-library
+```
+
+**Windows Example:**
+```bash
+docker volume create --driver local --opt type=none --opt o=bind --opt device=D:\sebas\Torrent windows-torrent-downloads
+docker volume create --driver local --opt type=none --opt o=bind --opt device=D:\sebas\Videos\Jellyfin windows-library
+```
+
+**Linux Example:**
+```bash
+docker volume create --driver local --opt type=none --opt o=bind --opt device=/mnt/torrents windows-torrent-downloads  
+docker volume create --driver local --opt type=none --opt o=bind --opt device=/mnt/media windows-library
+```
+
+> **Note:** Replace the device paths with your actual directory paths where you want to store torrents and media files.
+
 When VPN is enabled, **qBittorrent** and **Prowlarr** will run behind the VPN for added privacy.  
 
 By default, **NordVPN** is used in `docker-compose.yml`, but you can switch to:
